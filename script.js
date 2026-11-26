@@ -19,3 +19,38 @@ function removeItem(event) {
   updateTotalPrice(-price);
   item.remove();
 }
+
+
+addProductButton.addEventListener("click", function(){
+    const productName = productNameInput.value;
+    const productPrice = parseFloat(productPriceInput.value);
+
+    if(productName === "" || productPriceInput.value === "" || productPrice <= 0 ){
+        alert("Please enter a valid response.");
+        return;
+    }
+
+    const item = document.createElement("li");
+    item.classList.add("cart-item");
+
+
+    item.dataset.price = productPrice;
+
+    const product =  document.createElement("span");
+    product.textContent = productName + " $" + productPrice;
+
+    const removeButton = document.createElement("button");
+    removeButton.textContent = "Remove";
+
+    removeButton.addEventListener("click", removeItem);
+
+    item.appendChild(product);
+    item.appendChild(removeButton);
+
+    cart.appendChild(item);
+
+    updateTotalPrice(productPrice);
+
+    productNameInput.value = "";
+    productPriceInput.value = "";
+});
